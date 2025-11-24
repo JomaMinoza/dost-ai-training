@@ -111,7 +111,7 @@ for name, model in [('Linear', lr), ('Ridge', ridge), ('RF', rf)]:
     y_pred = model.predict(X_test_reg_scaled)
     r2 = r2_score(y_test_reg, y_pred)
     rmse = np.sqrt(mean_squared_error(y_test_reg, y_pred))
-    print(f"  {name:10s}: R²={r2:.4f}, RMSE={rmse:.4f}")
+    print(f"  {name:10s}: R^2={r2:.4f}, RMSE={rmse:.4f}")
 
 # Create voting regressor
 voting_reg = VotingRegressor([
@@ -126,8 +126,8 @@ r2_voting = r2_score(y_test_reg, y_pred_voting)
 rmse_voting = np.sqrt(mean_squared_error(y_test_reg, y_pred_voting))
 
 print(f"\nVoting Regressor (Average):")
-print(f"  R²={r2_voting:.4f}, RMSE={rmse_voting:.4f}")
-print(f"  → Often better than individual models!")
+print(f"  R^2={r2_voting:.4f}, RMSE={rmse_voting:.4f}")
+print(f"  -> Often better than individual models!")
 
 # ============================================================================
 # 2. BAGGING - Bootstrap Aggregating
@@ -142,7 +142,7 @@ dt.fit(X_train_reg_scaled, y_train_reg)
 y_pred_dt = dt.predict(X_test_reg_scaled)
 r2_dt = r2_score(y_test_reg, y_pred_dt)
 
-print(f"\nSingle Decision Tree: R²={r2_dt:.4f} (may overfit)")
+print(f"\nSingle Decision Tree: R^2={r2_dt:.4f} (may overfit)")
 
 # Bagging with multiple trees
 bagging_reg = BaggingRegressor(
@@ -158,8 +158,8 @@ bagging_reg.fit(X_train_reg_scaled, y_train_reg)
 y_pred_bagging = bagging_reg.predict(X_test_reg_scaled)
 r2_bagging = r2_score(y_test_reg, y_pred_bagging)
 
-print(f"Bagging (50 trees): R²={r2_bagging:.4f} (reduced overfitting)")
-print(f"  → Improvement: {r2_bagging - r2_dt:+.4f}")
+print(f"Bagging (50 trees): R^2={r2_bagging:.4f} (reduced overfitting)")
+print(f"  -> Improvement: {r2_bagging - r2_dt:+.4f}")
 
 # Random Forest (bagging + feature randomness)
 rf_full = RandomForestRegressor(n_estimators=100, random_state=42, n_jobs=-1)
@@ -167,7 +167,7 @@ rf_full.fit(X_train_reg_scaled, y_train_reg)
 y_pred_rf = rf_full.predict(X_test_reg_scaled)
 r2_rf = r2_score(y_test_reg, y_pred_rf)
 
-print(f"Random Forest: R²={r2_rf:.4f} (bagging + feature randomness)")
+print(f"Random Forest: R^2={r2_rf:.4f} (bagging + feature randomness)")
 
 # ============================================================================
 # 3. BOOSTING - Sequential Error Correction
@@ -188,7 +188,7 @@ adaboost_reg.fit(X_train_reg_scaled, y_train_reg)
 y_pred_ada = adaboost_reg.predict(X_test_reg_scaled)
 r2_ada = r2_score(y_test_reg, y_pred_ada)
 
-print(f"\nAdaBoost: R²={r2_ada:.4f}")
+print(f"\nAdaBoost: R^2={r2_ada:.4f}")
 
 # Gradient Boosting
 gb_reg = GradientBoostingRegressor(
@@ -202,8 +202,8 @@ gb_reg.fit(X_train_reg_scaled, y_train_reg)
 y_pred_gb = gb_reg.predict(X_test_reg_scaled)
 r2_gb = r2_score(y_test_reg, y_pred_gb)
 
-print(f"Gradient Boosting: R²={r2_gb:.4f}")
-print(f"\n→ Boosting reduces bias by focusing on difficult examples")
+print(f"Gradient Boosting: R^2={r2_gb:.4f}")
+print(f"\n-> Boosting reduces bias by focusing on difficult examples")
 
 # ============================================================================
 # 4. STACKING - Meta-Learning
@@ -238,8 +238,8 @@ stacking_reg.fit(X_train_reg_scaled, y_train_reg)
 y_pred_stack = stacking_reg.predict(X_test_reg_scaled)
 r2_stack = r2_score(y_test_reg, y_pred_stack)
 
-print(f"\nStacking Performance: R²={r2_stack:.4f}")
-print(f"  → Combines strengths of multiple models")
+print(f"\nStacking Performance: R^2={r2_stack:.4f}")
+print(f"  -> Combines strengths of multiple models")
 
 # ============================================================================
 # 5. COMPARISON OF ALL REGRESSION ENSEMBLES
@@ -272,7 +272,7 @@ bar_colors = [colors[t] for t in results_reg['Type']]
 
 plt.barh(results_reg['Method'], results_reg['R2_Score'],
          color=bar_colors, edgecolor='black', alpha=0.7)
-plt.xlabel('R² Score', fontsize=12)
+plt.xlabel('R^2 Score', fontsize=12)
 plt.title('Regression Ensemble Methods Comparison', fontsize=14, fontweight='bold')
 plt.grid(True, alpha=0.3, axis='x')
 
@@ -374,57 +374,57 @@ print("""
 ENSEMBLE STRATEGIES COMPARISON:
 
 1. VOTING/AVERAGING:
-   ✅ Simple, easy to understand
-   ✅ Works well when base models are diverse
-   ❌ All models weighted equally (unless specified)
-   → Use for: Quick ensemble, combining different model types
+   [OK] Simple, easy to understand
+   [OK] Works well when base models are diverse
+   [X] All models weighted equally (unless specified)
+   -> Use for: Quick ensemble, combining different model types
 
 2. BAGGING (Bootstrap Aggregating):
-   ✅ Reduces variance (overfitting)
-   ✅ Parallelizable (fast training)
-   ✅ Good for unstable models (decision trees)
-   ❌ May not reduce bias much
-   → Use for: Reducing overfitting, high-variance models
+   [OK] Reduces variance (overfitting)
+   [OK] Parallelizable (fast training)
+   [OK] Good for unstable models (decision trees)
+   [X] May not reduce bias much
+   -> Use for: Reducing overfitting, high-variance models
 
 3. RANDOM FOREST (Bagging + Feature Randomness):
-   ✅ Bagging benefits + decorrelated trees
-   ✅ Built-in feature importance
-   ✅ Robust and reliable
-   → Use for: General-purpose, first ensemble to try
+   [OK] Bagging benefits + decorrelated trees
+   [OK] Built-in feature importance
+   [OK] Robust and reliable
+   -> Use for: General-purpose, first ensemble to try
 
 4. BOOSTING (AdaBoost, Gradient Boosting):
-   ✅ Reduces bias (underfitting)
-   ✅ Often best performance
-   ❌ Sequential (slower training)
-   ❌ Can overfit if not tuned
-   → Use for: Maximizing performance, tabular data
+   [OK] Reduces bias (underfitting)
+   [OK] Often best performance
+   [X] Sequential (slower training)
+   [X] Can overfit if not tuned
+   -> Use for: Maximizing performance, tabular data
 
 5. STACKING:
-   ✅ Can combine very different models
-   ✅ Meta-model learns optimal combination
-   ❌ More complex, risk of overfitting
-   ❌ Harder to interpret
-   → Use for: Competitions, maximizing last % of performance
+   [OK] Can combine very different models
+   [OK] Meta-model learns optimal combination
+   [X] More complex, risk of overfitting
+   [X] Harder to interpret
+   -> Use for: Competitions, maximizing last % of performance
 
 WHEN TO USE EACH:
 
 Simple ensemble needed:
-  → Voting (average 3-5 models)
+  -> Voting (average 3-5 models)
 
 High variance (overfitting):
-  → Bagging or Random Forest
+  -> Bagging or Random Forest
 
 High bias (underfitting):
-  → Boosting (GradientBoosting, XGBoost)
+  -> Boosting (GradientBoosting, XGBoost)
 
 Maximum performance:
-  → Stacking or Boosting
+  -> Stacking or Boosting
 
 Limited data:
-  → Bagging (reduces overfitting)
+  -> Bagging (reduces overfitting)
 
 Large dataset:
-  → Random Forest (parallelizable)
+  -> Random Forest (parallelizable)
 
 PRACTICAL TIPS:
 
@@ -450,21 +450,21 @@ PRACTICAL TIPS:
 CHEMISTRY-SPECIFIC INSIGHTS:
 
 For molecular property prediction:
-  → Random Forest or Gradient Boosting work best
-  → Stacking can squeeze out extra performance
-  → Voting is good for combining different descriptor sets
+  -> Random Forest or Gradient Boosting work best
+  -> Stacking can squeeze out extra performance
+  -> Voting is good for combining different descriptor sets
 
 For drug discovery:
-  → Ensemble methods reduce false positives/negatives
-  → Important when prediction errors are costly
+  -> Ensemble methods reduce false positives/negatives
+  -> Important when prediction errors are costly
 
 COMMON PITFALLS:
 
-❌ Ensembling similar models (low diversity)
-❌ Not validating on separate test set
-❌ Over-complicating (start simple!)
-❌ Ignoring computational cost
-❌ Using stacking without enough data
+[X] Ensembling similar models (low diversity)
+[X] Not validating on separate test set
+[X] Over-complicating (start simple!)
+[X] Ignoring computational cost
+[X] Using stacking without enough data
 
 EXERCISE FOR YOU:
 1. Try XGBoost (pip install xgboost) - often best performance

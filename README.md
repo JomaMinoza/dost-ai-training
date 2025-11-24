@@ -6,7 +6,7 @@
 |---|---|
 | **Date** | November 25-26, 2025 |
 | **Venue** | DOST-ITDI, Taguig City |
-| **Instructor** | Jose Marie Antonio Miñoza, MSc |
+| **Instructor** | Jose Marie Antonio Minoza, MSc |
 
 ---
 
@@ -48,6 +48,7 @@
 | Model Interpretation | `activity_04_model_interpretation.py` |
 | Ensemble Methods | `activity_05_ensemble_methods.py` |
 | Regularization | `activity_06_regularization.py` |
+| Clustering | `activity_07_clustering.py` |
 
 ---
 

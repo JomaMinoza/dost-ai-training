@@ -234,40 +234,40 @@ print("""
 WHEN TO USE EACH CV STRATEGY:
 
 1. STRATIFIED K-FOLD (MOST COMMON):
-   ✅ Classification problems
-   ✅ Imbalanced datasets
-   ✅ Preserves class distribution
-   → USE THIS AS DEFAULT for classification
+   [OK] Classification problems
+   [OK] Imbalanced datasets
+   [OK] Preserves class distribution
+   -> USE THIS AS DEFAULT for classification
 
 2. REGULAR K-FOLD:
-   ✅ Regression problems
-   ✅ Large balanced datasets
-   ✅ When class distribution doesn't matter
+   [OK] Regression problems
+   [OK] Large balanced datasets
+   [OK] When class distribution doesn't matter
 
 3. LEAVE-ONE-OUT (LOO):
-   ✅ Very small datasets (n < 100)
-   ⚠ Computationally expensive
-   ⚠ High variance in estimates
+   [OK] Very small datasets (n < 100)
+   [!] Computationally expensive
+   [!] High variance in estimates
 
 4. SHUFFLE SPLIT:
-   ✅ Want to control train/test size independently
-   ✅ Multiple random splits
-   ✅ Very large datasets (sample subset)
+   [OK] Want to control train/test size independently
+   [OK] Multiple random splits
+   [OK] Very large datasets (sample subset)
 
 5. NESTED CV:
-   ✅ Unbiased model evaluation
-   ✅ When doing hyperparameter tuning
-   ✅ Research / publication-quality results
-   ⚠ Computationally expensive
+   [OK] Unbiased model evaluation
+   [OK] When doing hyperparameter tuning
+   [OK] Research / publication-quality results
+   [!] Computationally expensive
 
 COMMON PITFALLS TO AVOID:
 
-❌ Using test set multiple times (data leakage!)
-❌ Not stratifying for imbalanced classification
-❌ Too few folds (k<5) - high variance
-❌ Too many folds - computationally expensive
-❌ Forgetting to shuffle (especially with sorted data)
-❌ Using k-fold for time series (use TimeSeriesSplit)
+[X] Using test set multiple times (data leakage!)
+[X] Not stratifying for imbalanced classification
+[X] Too few folds (k<5) - high variance
+[X] Too many folds - computationally expensive
+[X] Forgetting to shuffle (especially with sorted data)
+[X] Using k-fold for time series (use TimeSeriesSplit)
 
 RECOMMENDATIONS:
 
@@ -286,7 +286,7 @@ K-Fold with k folds:
   - Total data used: 100% (with different splits)
 
 Nested CV (k_outer=5, k_inner=3):
-  - Training: 5 × 3 × (grid size) models
+  - Training: 5 x 3 x (grid size) models
   - Much more expensive but unbiased!
 
 EXERCISE FOR YOU:

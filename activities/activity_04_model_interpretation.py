@@ -96,8 +96,8 @@ gbr.fit(X_train_scaled, y_train)
 y_pred_rf = rf.predict(X_test_scaled)
 y_pred_gbr = gbr.predict(X_test_scaled)
 
-print(f"\nRandom Forest - Test R²: {r2_score(y_test, y_pred_rf):.4f}")
-print(f"Gradient Boosting - Test R²: {r2_score(y_test, y_pred_gbr):.4f}")
+print(f"\nRandom Forest - Test R^2: {r2_score(y_test, y_pred_rf):.4f}")
+print(f"Gradient Boosting - Test R^2: {r2_score(y_test, y_pred_gbr):.4f}")
 
 # ============================================================================
 # 1. FEATURE IMPORTANCE (Built-in)
@@ -188,7 +188,7 @@ fig, axes = plt.subplots(1, 2, figsize=(14, 6))
 axes[0].barh(perm_rf_df['Feature'], perm_rf_df['Importance'],
              xerr=perm_rf_df['Std'], color='steelblue',
              edgecolor='black', alpha=0.7)
-axes[0].set_xlabel('Importance (Drop in R²)', fontsize=12)
+axes[0].set_xlabel('Importance (Drop in R^2)', fontsize=12)
 axes[0].set_title('Random Forest\nPermutation Importance', fontsize=13, fontweight='bold')
 axes[0].invert_yaxis()
 axes[0].grid(True, alpha=0.3, axis='x')
@@ -196,7 +196,7 @@ axes[0].grid(True, alpha=0.3, axis='x')
 axes[1].barh(perm_gbr_df['Feature'], perm_gbr_df['Importance'],
              xerr=perm_gbr_df['Std'], color='coral',
              edgecolor='black', alpha=0.7)
-axes[1].set_xlabel('Importance (Drop in R²)', fontsize=12)
+axes[1].set_xlabel('Importance (Drop in R^2)', fontsize=12)
 axes[1].set_title('Gradient Boosting\nPermutation Importance', fontsize=13, fontweight='bold')
 axes[1].invert_yaxis()
 axes[1].grid(True, alpha=0.3, axis='x')
@@ -265,7 +265,7 @@ feature1_name, feature2_name = top_features[0], top_features[1]
 feature1_idx = feature_columns.index(feature1_name)
 feature2_idx = feature_columns.index(feature2_name)
 
-print(f"\nAnalyzing interaction: {feature1_name} × {feature2_name}")
+print(f"\nAnalyzing interaction: {feature1_name} x {feature2_name}")
 
 # Create 2D PDP
 fig, ax = plt.subplots(figsize=(10, 8))
@@ -284,7 +284,7 @@ ax.contour(XX, YY, Z, levels=10, colors='black', alpha=0.3, linewidths=0.5)
 
 ax.set_xlabel(feature1_name, fontsize=12)
 ax.set_ylabel(feature2_name, fontsize=12)
-ax.set_title(f'2D Partial Dependence: {feature1_name} × {feature2_name}',
+ax.set_title(f'2D Partial Dependence: {feature1_name} x {feature2_name}',
              fontsize=14, fontweight='bold')
 
 plt.colorbar(im, ax=ax, label='Partial Dependence')
@@ -421,42 +421,42 @@ print("""
 INTERPRETATION METHODS COMPARISON:
 
 1. BUILT-IN FEATURE IMPORTANCE (Tree-based):
-   ✅ Fast, no additional computation
-   ✅ Shows importance for training data
-   ❌ Model-specific (only tree-based)
-   ❌ Can be biased toward high-cardinality features
-   → Use for: Quick insights, tree-based models
+   [OK] Fast, no additional computation
+   [OK] Shows importance for training data
+   [X] Model-specific (only tree-based)
+   [X] Can be biased toward high-cardinality features
+   -> Use for: Quick insights, tree-based models
 
 2. PERMUTATION IMPORTANCE:
-   ✅ Model-agnostic (works with any model)
-   ✅ Uses test data (more realistic)
-   ✅ Captures complex relationships
-   ❌ Computationally expensive
-   ❌ Can be unstable with correlated features
-   → Use for: Reliable importance ranking, any model
+   [OK] Model-agnostic (works with any model)
+   [OK] Uses test data (more realistic)
+   [OK] Captures complex relationships
+   [X] Computationally expensive
+   [X] Can be unstable with correlated features
+   -> Use for: Reliable importance ranking, any model
 
 3. PARTIAL DEPENDENCE PLOTS:
-   ✅ Shows direction of relationship (increasing/decreasing)
-   ✅ Visualizes non-linear effects
-   ✅ Intuitive interpretation
-   ❌ Assumes feature independence (may be misleading)
-   ❌ Averages over all other features
-   → Use for: Understanding feature effects, presentations
+   [OK] Shows direction of relationship (increasing/decreasing)
+   [OK] Visualizes non-linear effects
+   [OK] Intuitive interpretation
+   [X] Assumes feature independence (may be misleading)
+   [X] Averages over all other features
+   -> Use for: Understanding feature effects, presentations
 
 4. TWO-WAY PDP:
-   ✅ Reveals feature interactions
-   ✅ Shows combined effects
-   ❌ Computationally expensive
-   ❌ Difficult to interpret with many features
-   → Use for: Investigating suspected interactions
+   [OK] Reveals feature interactions
+   [OK] Shows combined effects
+   [X] Computationally expensive
+   [X] Difficult to interpret with many features
+   -> Use for: Investigating suspected interactions
 
 5. SHAP VALUES (if available):
-   ✅ Theoretically sound (game theory)
-   ✅ Individual prediction explanations
-   ✅ Shows positive/negative contributions
-   ❌ Very computationally expensive
-   ❌ Requires additional library
-   → Use for: High-stakes decisions, detailed analysis
+   [OK] Theoretically sound (game theory)
+   [OK] Individual prediction explanations
+   [OK] Shows positive/negative contributions
+   [X] Very computationally expensive
+   [X] Requires additional library
+   -> Use for: High-stakes decisions, detailed analysis
 
 PRACTICAL WORKFLOW:
 
@@ -476,28 +476,28 @@ From our analysis:
 
 COMMON PITFALLS TO AVOID:
 
-❌ Don't trust only one interpretation method
-❌ Don't ignore feature correlations
-❌ Don't over-interpret small importance differences
-❌ Don't forget to check on test data
-❌ Don't assume causation from importance
+[X] Don't trust only one interpretation method
+[X] Don't ignore feature correlations
+[X] Don't over-interpret small importance differences
+[X] Don't forget to check on test data
+[X] Don't assume causation from importance
 
 WHEN TO USE EACH APPROACH:
 
 Quick exploratory analysis:
-  → Built-in importance + PDP for top features
+  -> Built-in importance + PDP for top features
 
 Model debugging:
-  → Permutation importance + individual predictions
+  -> Permutation importance + individual predictions
 
 Stakeholder presentation:
-  → PDP plots with clear interpretations
+  -> PDP plots with clear interpretations
 
 Scientific publication:
-  → Multiple methods + cross-validation
+  -> Multiple methods + cross-validation
 
 Regulatory approval:
-  → SHAP or permutation importance
+  -> SHAP or permutation importance
 
 TIPS FOR CHEMISTRY:
 

@@ -114,7 +114,7 @@ for i in range(len(correlation_matrix.columns)):
 if high_corr_pairs:
     for pair in high_corr_pairs:
         print(f"  {pair['Feature 1']:30s} <-> {pair['Feature 2']:30s}: {pair['Correlation']:.3f}")
-    print(f"\n⚠ Warning: High correlation may indicate multicollinearity!")
+    print(f"\n[!] Warning: High correlation may indicate multicollinearity!")
     print("  Consider removing one feature from each pair.")
 else:
     print("  No highly correlated pairs found.")
@@ -276,7 +276,7 @@ for n_features in n_features_to_select_list:
     })
 
     print(f"\nRFE with {n_features} features:")
-    print(f"  R² Score: {r2:.4f}")
+    print(f"  R^2 Score: {r2:.4f}")
     print(f"  RMSE: {rmse:.4f}")
     print(f"  Selected: {', '.join(selected_features[:5])}...")
 
@@ -289,8 +289,8 @@ rmse_scores = [r['RMSE'] for r in rfe_results]
 
 axes[0].plot(n_features, r2_scores, 'o-', linewidth=2, markersize=10, color='steelblue')
 axes[0].set_xlabel('Number of Features', fontsize=12)
-axes[0].set_ylabel('R² Score', fontsize=12)
-axes[0].set_title('RFE: Number of Features vs R²', fontsize=13, fontweight='bold')
+axes[0].set_ylabel('R^2 Score', fontsize=12)
+axes[0].set_title('RFE: Number of Features vs R^2', fontsize=13, fontweight='bold')
 axes[0].grid(True, alpha=0.3)
 
 axes[1].plot(n_features, rmse_scores, 's-', linewidth=2, markersize=10, color='coral')
@@ -360,8 +360,8 @@ for degree in [1, 2]:  # degree=1 is baseline (linear)
 
     print(f"\nPolynomial Degree {degree}:")
     print(f"  Features: {important_features} -> {n_features} features")
-    print(f"  Train R²: {train_r2:.4f}")
-    print(f"  Test R²: {test_r2:.4f}")
+    print(f"  Train R^2: {train_r2:.4f}")
+    print(f"  Test R^2: {test_r2:.4f}")
     print(f"  Test RMSE: {test_rmse:.4f}")
 
 poly_df = pd.DataFrame(poly_results)
@@ -417,7 +417,7 @@ for strategy_name, selected in strategies.items():
 
     print(f"\n{strategy_name}:")
     print(f"  Features: {len(indices)}")
-    print(f"  Test R²: {r2:.4f}")
+    print(f"  Test R^2: {r2:.4f}")
     print(f"  RMSE: {rmse:.4f}")
 
 comparison_df = pd.DataFrame(comparison_results)
@@ -429,8 +429,8 @@ fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
 axes[0].barh(comparison_df['Strategy'], comparison_df['Test_R2'],
              color='steelblue', edgecolor='black', alpha=0.7)
-axes[0].set_xlabel('Test R² Score', fontsize=12)
-axes[0].set_title('Feature Selection Strategy Comparison (R²)',
+axes[0].set_xlabel('Test R^2 Score', fontsize=12)
+axes[0].set_title('Feature Selection Strategy Comparison (R^2)',
                   fontsize=13, fontweight='bold')
 axes[0].grid(True, alpha=0.3, axis='x')
 
@@ -456,65 +456,65 @@ print("""
 FEATURE ENGINEERING WORKFLOW:
 
 1. START WITH DOMAIN KNOWLEDGE:
-   ✅ Understand what each feature means
-   ✅ Know which features are physically/chemically meaningful
-   ✅ Consult domain experts
+   [OK] Understand what each feature means
+   [OK] Know which features are physically/chemically meaningful
+   [OK] Consult domain experts
 
 2. EXPLORE CORRELATIONS:
-   ✅ Check correlation matrix
-   ✅ Remove redundant features (|r| > 0.95)
-   ✅ Watch for multicollinearity in linear models
+   [OK] Check correlation matrix
+   [OK] Remove redundant features (|r| > 0.95)
+   [OK] Watch for multicollinearity in linear models
 
 3. FEATURE IMPORTANCE ANALYSIS:
-   ✅ Use multiple methods (RF, GB, Lasso)
-   ✅ Look for consensus across methods
-   ✅ Keep features important in multiple models
+   [OK] Use multiple methods (RF, GB, Lasso)
+   [OK] Look for consensus across methods
+   [OK] Keep features important in multiple models
 
 4. FEATURE SELECTION TECHNIQUES:
-   ✅ Univariate: F-test, Mutual Information (fast, independent)
-   ✅ RFE: Iterative removal (slower, model-dependent)
-   ✅ L1 Regularization: Automatic via Lasso
-   ✅ Tree-based: Built-in importance
+   [OK] Univariate: F-test, Mutual Information (fast, independent)
+   [OK] RFE: Iterative removal (slower, model-dependent)
+   [OK] L1 Regularization: Automatic via Lasso
+   [OK] Tree-based: Built-in importance
 
 5. CREATE NEW FEATURES:
-   ✅ Polynomial features for non-linear relationships
-   ✅ Interaction terms for synergistic effects
-   ✅ Domain-specific transformations (log, sqrt, etc.)
-   ✅ Binning/discretization for categorical behavior
+   [OK] Polynomial features for non-linear relationships
+   [OK] Interaction terms for synergistic effects
+   [OK] Domain-specific transformations (log, sqrt, etc.)
+   [OK] Binning/discretization for categorical behavior
 
 6. AVOID COMMON PITFALLS:
-   ❌ Don't select features on the entire dataset (data leakage!)
-   ❌ Don't create too many polynomial features (curse of dimensionality)
-   ❌ Don't remove features without understanding why
-   ❌ Don't forget to scale features for distance-based models
+   [X] Don't select features on the entire dataset (data leakage!)
+   [X] Don't create too many polynomial features (curse of dimensionality)
+   [X] Don't remove features without understanding why
+   [X] Don't forget to scale features for distance-based models
 
 7. VALIDATE SELECTION:
-   ✅ Use cross-validation to assess stability
-   ✅ Check performance on held-out test set
-   ✅ Monitor for overfitting (train vs test gap)
-   ✅ Consider computational cost vs performance gain
+   [OK] Use cross-validation to assess stability
+   [OK] Check performance on held-out test set
+   [OK] Monitor for overfitting (train vs test gap)
+   [OK] Consider computational cost vs performance gain
 
 WHEN TO USE EACH METHOD:
 
 SelectKBest (F-test):
-  → Fast, univariate, good starting point
-  → Best for: Linear relationships, quick screening
+  -> Fast, univariate, good starting point
+  -> Best for: Linear relationships, quick screening
 
 Mutual Information:
-  → Captures non-linear relationships
-  → Best for: Non-linear models, complex patterns
+  -> Captures non-linear relationships
+  -> Best for: Non-linear models, complex patterns
 
 RFE:
-  → Considers feature interactions
-  → Best for: When you have time, important projects
+  -> Considers feature interactions
+  -> Best for: When you have time, important projects
 
 L1 (Lasso):
-  → Automatic, built into training
-  → Best for: Linear models, automatic pipelines
+  -> Automatic, built into training
+  -> Best for: Linear models, automatic pipelines
 
 Tree-based Importance:
-  → Fast, handles interactions
-  → Best for: Tree/ensemble models, non-linear
+  -> Fast, handles interactions
+  -> Best for: Tree/ensemble models, non-linear
 
 CHEMISTRY-SPECIFIC TIPS:
 

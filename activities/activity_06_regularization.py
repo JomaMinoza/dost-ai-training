@@ -128,9 +128,9 @@ for degree in [1, 2, 3, 5, 10]:
 
     status = "Underfit" if test_r2 < 0.7 else ("Overfit" if train_r2 - test_r2 > 0.1 else "Good")
     print(f"\nPolynomial Degree {degree} ({X_train_poly.shape[1]} features):")
-    print(f"  Train R²: {train_r2:.4f}")
-    print(f"  Test R²: {test_r2:.4f}")
-    print(f"  Gap: {train_r2 - test_r2:.4f} → {status}")
+    print(f"  Train R^2: {train_r2:.4f}")
+    print(f"  Test R^2: {test_r2:.4f}")
+    print(f"  Gap: {train_r2 - test_r2:.4f} -> {status}")
 
 complexity_df = pd.DataFrame(results_complexity)
 
@@ -138,11 +138,11 @@ complexity_df = pd.DataFrame(results_complexity)
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
 axes[0].plot(complexity_df['Degree'], complexity_df['Train_R2'],
-             'o-', linewidth=2, markersize=10, label='Train R²', color='blue')
+             'o-', linewidth=2, markersize=10, label='Train R^2', color='blue')
 axes[0].plot(complexity_df['Degree'], complexity_df['Test_R2'],
-             's-', linewidth=2, markersize=10, label='Test R²', color='red')
+             's-', linewidth=2, markersize=10, label='Test R^2', color='red')
 axes[0].set_xlabel('Polynomial Degree (Complexity)', fontsize=12)
-axes[0].set_ylabel('R² Score', fontsize=12)
+axes[0].set_ylabel('R^2 Score', fontsize=12)
 axes[0].set_title('Bias-Variance Tradeoff', fontsize=13, fontweight='bold')
 axes[0].legend()
 axes[0].grid(True, alpha=0.3)
@@ -169,7 +169,7 @@ print("\n" + "="*70)
 print("2. L2 REGULARIZATION (RIDGE) - Shrinking Coefficients")
 print("="*70)
 
-print("\nRidge penalty: α × Σ(coefficient²)")
+print("\nRidge penalty: alpha x sum(coefficient^2)")
 print("  - Shrinks all coefficients toward zero")
 print("  - Keeps all features (no feature selection)")
 print("  - Good when many features are somewhat useful")
@@ -193,32 +193,32 @@ for alpha in alphas:
         'Coef_Norm': coef_norm
     })
 
-    print(f"\nα={alpha:7.3f}: Train R²={train_r2:.4f}, Test R²={test_r2:.4f}, ||coef||={coef_norm:.4f}")
+    print(f"\nalpha={alpha:7.3f}: Train R^2={train_r2:.4f}, Test R^2={test_r2:.4f}, ||coef||={coef_norm:.4f}")
 
 ridge_df = pd.DataFrame(ridge_results)
 
 # Find optimal alpha
 best_idx = ridge_df['Test_R2'].idxmax()
 best_alpha = ridge_df.loc[best_idx, 'Alpha']
-print(f"\nBest α: {best_alpha} (Test R²={ridge_df.loc[best_idx, 'Test_R2']:.4f})")
+print(f"\nBest alpha: {best_alpha} (Test R^2={ridge_df.loc[best_idx, 'Test_R2']:.4f})")
 
 # Visualize
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
 axes[0].semilogx(ridge_df['Alpha'], ridge_df['Train_R2'],
-                 'o-', linewidth=2, label='Train R²', color='blue')
+                 'o-', linewidth=2, label='Train R^2', color='blue')
 axes[0].semilogx(ridge_df['Alpha'], ridge_df['Test_R2'],
-                 's-', linewidth=2, label='Test R²', color='red')
-axes[0].axvline(x=best_alpha, color='green', linestyle='--', label=f'Best α={best_alpha}')
-axes[0].set_xlabel('Regularization Strength (α)', fontsize=12)
-axes[0].set_ylabel('R² Score', fontsize=12)
+                 's-', linewidth=2, label='Test R^2', color='red')
+axes[0].axvline(x=best_alpha, color='green', linestyle='--', label=f'Best alpha={best_alpha}')
+axes[0].set_xlabel('Regularization Strength (alpha)', fontsize=12)
+axes[0].set_ylabel('R^2 Score', fontsize=12)
 axes[0].set_title('Ridge: Effect of Regularization', fontsize=13, fontweight='bold')
 axes[0].legend()
 axes[0].grid(True, alpha=0.3)
 
 axes[1].semilogx(ridge_df['Alpha'], ridge_df['Coef_Norm'],
                  'o-', linewidth=2, color='purple')
-axes[1].set_xlabel('Regularization Strength (α)', fontsize=12)
+axes[1].set_xlabel('Regularization Strength (alpha)', fontsize=12)
 axes[1].set_ylabel('Coefficient Norm ||coef||', fontsize=12)
 axes[1].set_title('Ridge: Coefficient Shrinkage', fontsize=13, fontweight='bold')
 axes[1].grid(True, alpha=0.3)
@@ -234,7 +234,7 @@ print("\n" + "="*70)
 print("3. L1 REGULARIZATION (LASSO) - Automatic Feature Selection")
 print("="*70)
 
-print("\nLasso penalty: α × Σ|coefficient|")
+print("\nLasso penalty: alpha x sum|coefficient|")
 print("  - Forces some coefficients to exactly zero")
 print("  - Performs automatic feature selection")
 print("  - Good when many features are irrelevant")
@@ -259,7 +259,7 @@ for alpha in alphas:
 
     lasso_models[alpha] = lasso
 
-    print(f"\nα={alpha:7.3f}: Train R²={train_r2:.4f}, Test R²={test_r2:.4f}, Active features={n_nonzero}/{len(feature_columns)}")
+    print(f"\nalpha={alpha:7.3f}: Train R^2={train_r2:.4f}, Test R^2={test_r2:.4f}, Active features={n_nonzero}/{len(feature_columns)}")
 
 lasso_df = pd.DataFrame(lasso_results)
 
@@ -271,7 +271,7 @@ for i, feature in enumerate(feature_columns):
     coefs = [lasso_models[alpha].coef_[i] for alpha in alphas]
     axes[0].semilogx(alphas, coefs, 'o-', linewidth=2, label=feature)
 
-axes[0].set_xlabel('Regularization Strength (α)', fontsize=12)
+axes[0].set_xlabel('Regularization Strength (alpha)', fontsize=12)
 axes[0].set_ylabel('Coefficient Value', fontsize=12)
 axes[0].set_title('Lasso: Coefficient Paths', fontsize=13, fontweight='bold')
 axes[0].legend(fontsize=9)
@@ -281,7 +281,7 @@ axes[0].axhline(y=0, color='black', linewidth=1)
 # Number of features vs alpha
 axes[1].semilogx(lasso_df['Alpha'], lasso_df['N_Features'],
                  'o-', linewidth=2, color='steelblue')
-axes[1].set_xlabel('Regularization Strength (α)', fontsize=12)
+axes[1].set_xlabel('Regularization Strength (alpha)', fontsize=12)
 axes[1].set_ylabel('Number of Active Features', fontsize=12)
 axes[1].set_title('Lasso: Feature Selection', fontsize=13, fontweight='bold')
 axes[1].grid(True, alpha=0.3)
@@ -297,7 +297,7 @@ print("\n" + "="*70)
 print("4. ELASTICNET - Best of Both Worlds")
 print("="*70)
 
-print("\nElasticNet penalty: α × [λ × Σ|coef| + (1-λ) × Σ(coef²)]")
+print("\nElasticNet penalty: alpha x [lambda x sum|coef| + (1-lambda) x sum(coef^2)]")
 print("  - Combines L1 (feature selection) and L2 (shrinkage)")
 print("  - l1_ratio controls balance (0=Ridge, 1=Lasso)")
 print("  - Good when features are correlated")
@@ -325,7 +325,7 @@ for l1_ratio in l1_ratios:
 
     l1_pct = l1_ratio * 100
     l2_pct = (1 - l1_ratio) * 100
-    print(f"\nL1={l1_pct:.0f}%, L2={l2_pct:.0f}%: Train R²={train_r2:.4f}, Test R²={test_r2:.4f}, Features={n_nonzero}")
+    print(f"\nL1={l1_pct:.0f}%, L2={l2_pct:.0f}%: Train R^2={train_r2:.4f}, Test R^2={test_r2:.4f}, Features={n_nonzero}")
 
 elastic_df = pd.DataFrame(elastic_results)
 
@@ -333,7 +333,7 @@ plt.figure(figsize=(10, 6))
 plt.plot(elastic_df['L1_Ratio'], elastic_df['Test_R2'],
          'o-', linewidth=2, markersize=10, color='purple')
 plt.xlabel('L1 Ratio (0=Ridge, 1=Lasso)', fontsize=12)
-plt.ylabel('Test R² Score', fontsize=12)
+plt.ylabel('Test R^2 Score', fontsize=12)
 plt.title('ElasticNet: Effect of L1/L2 Mix', fontsize=14, fontweight='bold')
 plt.grid(True, alpha=0.3)
 plt.tight_layout()
@@ -389,14 +389,14 @@ print(comparison_df.to_string(index=False))
 fig, axes = plt.subplots(2, 2, figsize=(14, 10))
 axes = axes.ravel()
 
-# R² scores
+# R^2 scores
 x = np.arange(len(comparison_df))
 width = 0.35
 axes[0].bar(x - width/2, comparison_df['Train_R2'], width, label='Train', alpha=0.8)
 axes[0].bar(x + width/2, comparison_df['Test_R2'], width, label='Test', alpha=0.8)
 axes[0].set_xlabel('Model', fontsize=11)
-axes[0].set_ylabel('R² Score', fontsize=11)
-axes[0].set_title('R² Score Comparison', fontsize=12, fontweight='bold')
+axes[0].set_ylabel('R^2 Score', fontsize=11)
+axes[0].set_title('R^2 Score Comparison', fontsize=12, fontweight='bold')
 axes[0].set_xticks(x)
 axes[0].set_xticklabels(comparison_df['Model'])
 axes[0].legend()
@@ -449,53 +449,53 @@ print("""
 REGULARIZATION METHODS COMPARISON:
 
 1. NO REGULARIZATION (Linear Regression):
-   ✅ Unbiased estimates
-   ✅ Fast, simple
-   ❌ Can overfit with many features
-   ❌ Unstable with correlated features
-   → Use for: Small datasets, few features
+   [OK] Unbiased estimates
+   [OK] Fast, simple
+   [X] Can overfit with many features
+   [X] Unstable with correlated features
+   -> Use for: Small datasets, few features
 
 2. L2 REGULARIZATION (Ridge):
-   ✅ Handles multicollinearity well
-   ✅ Keeps all features
-   ✅ Stable, smooth solutions
-   ❌ Doesn't perform feature selection
-   → Use for: Many correlated features, need all features
+   [OK] Handles multicollinearity well
+   [OK] Keeps all features
+   [OK] Stable, smooth solutions
+   [X] Doesn't perform feature selection
+   -> Use for: Many correlated features, need all features
 
 3. L1 REGULARIZATION (Lasso):
-   ✅ Automatic feature selection
-   ✅ Interpretable (sparse solutions)
-   ✅ Good with irrelevant features
-   ❌ Arbitrary choice among correlated features
-   ❌ Can be unstable
-   → Use for: Feature selection, sparse models
+   [OK] Automatic feature selection
+   [OK] Interpretable (sparse solutions)
+   [OK] Good with irrelevant features
+   [X] Arbitrary choice among correlated features
+   [X] Can be unstable
+   -> Use for: Feature selection, sparse models
 
 4. ELASTICNET (L1 + L2):
-   ✅ Combines benefits of Ridge and Lasso
-   ✅ Handles correlated features better than Lasso
-   ✅ Feature selection + stability
-   ❌ Two hyperparameters to tune
-   → Use for: Correlated features + need selection
+   [OK] Combines benefits of Ridge and Lasso
+   [OK] Handles correlated features better than Lasso
+   [OK] Feature selection + stability
+   [X] Two hyperparameters to tune
+   -> Use for: Correlated features + need selection
 
 WHEN TO USE EACH:
 
 Few features (< 50):
-  → Start with Linear Regression
-  → Add Ridge if overfitting
+  -> Start with Linear Regression
+  -> Add Ridge if overfitting
 
 Many features (> 50):
-  → Try Lasso for feature selection
-  → Or Ridge if all features matter
+  -> Try Lasso for feature selection
+  -> Or Ridge if all features matter
 
 Correlated features:
-  → Ridge or ElasticNet
-  → Avoid pure Lasso
+  -> Ridge or ElasticNet
+  -> Avoid pure Lasso
 
 Need interpretability:
-  → Lasso (sparse, few features)
+  -> Lasso (sparse, few features)
 
 Need stability:
-  → Ridge (smooth coefficients)
+  -> Ridge (smooth coefficients)
 
 HYPERPARAMETER TUNING:
 
@@ -508,24 +508,24 @@ HYPERPARAMETER TUNING:
    - Then: Narrow range around best value
 
 3. Monitor train vs test:
-   - Too small α → overfitting (high train, low test)
-   - Too large α → underfitting (low train and test)
+   - Too small alpha -> overfitting (high train, low test)
+   - Too large alpha -> underfitting (low train and test)
 
 PRACTICAL WORKFLOW:
 
 1. Start with no regularization (baseline)
 2. Try Ridge (simple, often works well)
-3. If need feature selection → try Lasso
-4. If correlated features → try ElasticNet
-5. Always cross-validate to choose α
+3. If need feature selection -> try Lasso
+4. If correlated features -> try ElasticNet
+5. Always cross-validate to choose alpha
 
 COMMON PITFALLS:
 
-❌ Not scaling features before regularization
-❌ Using same α for different data scales
-❌ Choosing α on training set (use CV!)
-❌ Forgetting that regularization needs tuning
-❌ Applying to already regularized models (e.g., Random Forest)
+[X] Not scaling features before regularization
+[X] Using same alpha for different data scales
+[X] Choosing alpha on training set (use CV!)
+[X] Forgetting that regularization needs tuning
+[X] Applying to already regularized models (e.g., Random Forest)
 
 CHEMISTRY-SPECIFIC INSIGHTS:
 
@@ -533,7 +533,7 @@ For molecular descriptors:
   - Often have multicollinearity (LogP, MolWeight, etc.)
   - Ridge or ElasticNet usually work best
   - Lasso good for identifying key descriptors
-  - α typically in range [0.01, 10]
+  - alpha typically in range [0.01, 10]
 
 For high-dimensional data (many descriptors):
   - Lasso for automatic feature selection
@@ -552,7 +552,7 @@ EXERCISE FOR YOU:
 1. Try validation_curve() to visualize regularization effect
 2. Implement Ridge in PyTorch with weight_decay
 3. Compare regularization across different datasets
-4. Use RidgeCV or LassoCV for automatic α selection
+4. Use RidgeCV or LassoCV for automatic alpha selection
 5. Analyze which features are selected by Lasso
 """)
 
