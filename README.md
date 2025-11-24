@@ -29,12 +29,12 @@
 
 | Topic | Open in Colab |
 |-------|---------------|
-| Introduction to Python & ML | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jminoza/dost-ai-training/blob/main/notebooks/00_Introduction.ipynb) |
-| Exploratory Data Analysis | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jminoza/dost-ai-training/blob/main/notebooks/01_EDA_Chemistry.ipynb) |
-| Regression Models | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jminoza/dost-ai-training/blob/main/notebooks/02_Regression.ipynb) |
-| Classification Models | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jminoza/dost-ai-training/blob/main/notebooks/03_Classification.ipynb) |
-| Deep Learning with PyTorch | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jminoza/dost-ai-training/blob/main/notebooks/04_PyTorch_Basics.ipynb) |
-| LLMs & Research Tools | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jminoza/dost-ai-training/blob/main/notebooks/05_LLMs_and_Research_Tools.ipynb) |
+| Introduction to Python & ML | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jomaminoza/dost-ai-training/blob/main/notebooks/00_Introduction.ipynb) |
+| Exploratory Data Analysis | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jomaminoza/dost-ai-training/blob/main/notebooks/01_EDA_Chemistry.ipynb) |
+| Regression Models | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jomaminoza/dost-ai-training/blob/main/notebooks/02_Regression.ipynb) |
+| Classification Models | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jomaminoza/dost-ai-training/blob/main/notebooks/03_Classification.ipynb) |
+| Deep Learning with PyTorch | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jomaminoza/dost-ai-training/blob/main/notebooks/04_PyTorch_Basics.ipynb) |
+| LLMs & Research Tools | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jomaminoza/dost-ai-training/blob/main/notebooks/05_LLMs_and_Research_Tools.ipynb) |
 
 ---
 
