@@ -19,8 +19,9 @@
 - Deep Learning with PyTorch
 
 ### Day 2 - Advanced AI and Research Tools
-- Model Interpretability & Ethical AI
+- Computer Vision for Scientific Research
 - Large Language Models & Prompt Engineering
+- Image Generation & Report Automation
 - AI Tools for Research (NotebookLM, Elicit)
 
 ---
@@ -36,6 +37,7 @@
 | Deep Learning with PyTorch | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jomaminoza/dost-ai-training/blob/main/notebooks/04_PyTorch_Basics.ipynb) |
 | HuggingFace Transformers | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jomaminoza/dost-ai-training/blob/main/notebooks/04b_HuggingFace_Intro.ipynb) |
 | LLMs & Research Tools | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jomaminoza/dost-ai-training/blob/main/notebooks/05_LLMs_and_Research_Tools.ipynb) |
+| Computer Vision Basics | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jomaminoza/dost-ai-training/blob/main/notebooks/06_Computer_Vision.ipynb) |
 
 ---
 

@@ -33,6 +33,17 @@ tqdm>=4.62.0
 requests>=2.26.0
 pillow>=8.3.0
 
+# Computer Vision (NEW)
+opencv-python>=4.8.0
+scikit-image>=0.21.0
+
+# Image Generation (NEW)
+diffusers>=0.21.0
+accelerate>=0.24.0
+
+# Report Generation (NEW)
+markdown>=3.5.0
+
 # Optional (for advanced users)
 # xgboost>=1.5.0
 # lightgbm>=3.3.0
